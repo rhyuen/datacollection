@@ -1,0 +1,6 @@
+node_modules
+config.js
+npm-debug.log
+junkfolder
+artifacts
+jsontester.js

@@ -1,0 +1,74 @@
+<style>
+  .mdl-card__title{
+    height: 200px;
+    background: url("../images/cold.jpg") center/cover;
+    color: #FFF;
+  }
+</style>
+
+<div>
+  <div class="mdl-card mdl-shadow--2dp">
+    <div class="mdl-card__title">
+      <h2 class="mdl-card__title-text">Local Weather</h2>
+    </div>
+    <div class="mdl-card__supporting-text">
+      <p>{{projectContent}}</p>
+      <p>{{time}} Last Check</p>
+      <p>{{temp}} Degrees Celsius</p>
+      <p>{{cloudCoverage}}% CLOUD Coverage</p>
+      <p>{{rain}} PRECIPITATION (VOL in past 3 hours)</p>
+    </div>
+    <div class="mdl-card__actions mdl-card--border">
+      <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+        More
+      </a>
+    </div>
+    <div class="mdl-card__menu">
+      <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+        <i class="material-icons">share</i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id = "tester">
+
+</div>
+
+<script type = "text/javascript">
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      console.log(position.coords.latitude);
+      console.log(position.coords.longitude);
+      $.post("/", {lat: position.coords.latitude, long: position.coords.longitude}, function(data){
+
+        $("#tester").append(
+          $("<div/>", {class: "mdl-card mdl-shadow--2dp"}).append(
+              $("<div/>", {class: "mdl-card__title"}).append(
+                $("<h2/>", {class: "mdl-card__title-text", text: data.temp.temp}).append(
+                  $("<span/>", {text: " Degrees Celsius"})
+                )
+              )
+            ).append(
+              $("<div/>", {class: "mdl-card__supporting-text", text: data.weather[0].description})
+            ).append(
+              $("<div/>", {class: "mdl-card__actions mdl-card--border"}).append(
+                $("<a/>", {class: "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect",
+                          text: data.wind.speed}).append(
+                            $("<span/>", {text: "m/s"})
+                          )
+              )
+            ).append(
+              $("<div/>", {class: "mdl-card__menu"}).append(
+                $("<button/>", {class: "mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"}).append(
+                  $("<i/>", {class: "material-icons", text: "places"})
+                )
+              )
+            )
+          );
+
+
+      });
+    });
+  }
+</script>
