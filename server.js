@@ -34,24 +34,13 @@ app.get("/", function(req, res){
   //User Story: I can see a different icon or background image (e.g. snowy mountain, hot desert) depending on the weather.
   //ser Story: I can push a button to toggle between Fahrenheit Celsius Kelvin.
 
-  mongoose.connect(config.db, function(err){
-    if(err)
-      console.error(err);
-
-    Article.find(function(err, result){
-      if(err)
-        console.error(err);
-      //console.log(result);
-
-    });
-  });
 
   var weatherurl = "http://api.openweathermap.org/data/2.5/forecast/city?id=6173331&units=metric&APPID=" + config.weather_api;
   request(weatherurl, function(err, status, data){
     if(err)
       console.error(err);
     var content  = JSON.parse(data);
-    console.log(content);
+
     res.render("index", {
       projectContent: content.city.name,
       time: content.list[0].dt_txt,
@@ -84,6 +73,24 @@ app.post("/", function(req, res){
   });
 });
 
+
+app.get("/news", function(req, res){
+  mongoose.connect(config.db, function(err){
+    if(err)
+      console.error(err);
+
+    Article.find()
+    .sort({"updatedAt": -1})
+    .limit(10)
+    .exec(function(err, result){
+      if(err)
+        console.error(err);
+      console.log(result);
+      res.send(result);
+
+    });
+  });
+});
 
 app.get("/login", function(req, res){
   res.render("login");

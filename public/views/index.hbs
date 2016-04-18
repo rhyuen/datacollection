@@ -35,7 +35,13 @@
 
 </div>
 
+<div id = "news">
+</div>
+
+
+
 <script type = "text/javascript">
+$(document).ready(function(){
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       console.log(position.coords.latitude);
@@ -71,4 +77,27 @@
       });
     });
   }
+
+  $.get("/news", function(data){
+    console.log(data);
+
+    $("#news").append(
+      $("<table/>", {id: "newslist", class: "mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"}).append(
+        $("<tbody/>", {id: "newslistcontainer"})
+      )
+    );
+
+    for(var i = 0; i < data.length; i++){
+      console.log(data[i].title);
+      $("#newslistcontainer").append(
+        $("<tr/>").append($("<td/>").append(
+          $("<a/>", {href: data[i].url ,text: data[i].title})
+        ))
+                  .append($("<td/>", {text: data[i].source}))
+                  .append($("<td/>", {text: data[i].updatedAt})));
+    }
+
+  });
+});
+
 </script>
