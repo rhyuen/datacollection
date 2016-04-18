@@ -8,4 +8,4 @@ var listingSchema = mongoose.Schema({
   date: String
 });
 
-module.exports = mongoose.model("Listing", listingSchema);
+module.exports = mongoose.model("RoomListing", listingSchema);

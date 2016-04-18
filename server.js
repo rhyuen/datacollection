@@ -8,6 +8,7 @@ var morgan = require("morgan");
 var passport = require("passport");
 var path = require("path");
 var Article = require("./models/articlelisting.js");
+var RoomListing = require("./models/roomlisting.js");
 var config = require("./config.js");
 var app = express();
 
@@ -89,6 +90,14 @@ app.get("/news", function(req, res){
       res.send(result);
 
     });
+  });
+});
+
+app.get("/cl", function(req, res){
+  mongoose.connect(config.db, function(err){
+    if(err)
+      console.error(err);
+
   });
 });
 

@@ -38,6 +38,9 @@
 <div id = "news">
 </div>
 
+<div id = "cl">
+</div>
+
 
 
 <script type = "text/javascript">
@@ -91,7 +94,7 @@ $(document).ready(function(){
       console.log(data[i].title);
       $("#newslistcontainer").append(
         $("<tr/>").append($("<td/>").append(
-          $("<a/>", {href: data[i].url ,text: data[i].title})
+          $("<a/>", {href: data[i].url, target: "_blank",text: data[i].title})
         ))
                   .append($("<td/>", {text: data[i].source}))
                   .append($("<td/>", {text: data[i].updatedAt})));

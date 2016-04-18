@@ -2,7 +2,7 @@ var path = require("path");
 var fs = require("fs");
 var request = require("request");
 var cheerio = require("cheerio");
-var Listing = require("./listing.js");
+var RoomListing = require("./models/roomlisting.js");
 var config = require("./config.js");
 var mongoose = require("mongoose");
 
@@ -45,7 +45,7 @@ mongoose.connect(config.db, function(){
         currArea = ($(this).find(".pnr small").text() === "") ? "EMPTY NEIGHBOURHOOD" : $(this).find(".pnr small").text().trim();
       });
 
-      var currListing = new Listing({
+      var currListing = new RoomListing({
         title: currTitle,
         price: currPrice,
         roomDim: currRoomDim,
