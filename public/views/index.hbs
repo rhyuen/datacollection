@@ -1,13 +1,17 @@
 <style>
   .mdl-card__title{
     height: 200px;
-    background: url("../images/cold.jpg") center/cover;
-    color: #FFF;
+    background: url("../images/van2.jpg") center/cover;
+    color: lavender;
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
   }
 </style>
 
+
+
+
 <div>
-  <div class="mdl-card mdl-shadow--2dp">
+  <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--8-col mdl-cell--4-col-desktop">
     <div class="mdl-card__title">
       <h2 class="mdl-card__title-text">Local Weather</h2>
     </div>
@@ -98,6 +102,23 @@ $(document).ready(function(){
         ))
                   .append($("<td/>", {text: data[i].source}))
                   .append($("<td/>", {text: data[i].updatedAt})));
+    }
+
+  });
+
+  $.get("/cl", function(roomlistings){
+    console.log(roomlistings);
+
+    $("#cl").append(
+      $("<table/>", {id: "cllist", class: "mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"}).append(
+        $("<tbody/>", {id: "cllistcontainer"})
+      )
+    );
+
+    for(var i = 0; i < roomlistings.length; i++){
+      $("#cllistcontainer").append(
+        $("<tr/>").append($("<td/>", {text: roomlistings[i].title})).append($("<td/>", {text: roomlistings[i].price}))
+      )
     }
 
   });

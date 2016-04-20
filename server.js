@@ -62,7 +62,7 @@ app.post("/", function(req, res){
     if(err)
       console.error(err);
     var content = JSON.parse(data);
-    console.log(content);
+    //console.log(content);
 
     res.send({
       temp: content.main,
@@ -86,7 +86,7 @@ app.get("/news", function(req, res){
     .exec(function(err, result){
       if(err)
         console.error(err);
-      console.log(result);
+      //console.log(result);
       res.send(result);
 
     });
@@ -97,7 +97,15 @@ app.get("/cl", function(req, res){
   mongoose.connect(config.db, function(err){
     if(err)
       console.error(err);
-
+    RoomListing.find()
+      .sort({"updatedAt": -1})
+      .limit(10)
+      .exec(function(err, rooms){
+        if(err)
+          console.error(err);
+        console.log(rooms);
+        res.send(rooms);
+      });
   });
 });
 
