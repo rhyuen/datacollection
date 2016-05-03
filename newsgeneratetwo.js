@@ -79,6 +79,8 @@ function getNewsData(targetUrl){
       console.log(urlContainer.length);
 
     });
+
+    mongoose.disconnect();
   });
 }
 
