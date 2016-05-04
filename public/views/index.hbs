@@ -7,43 +7,54 @@
   }
 </style>
 
-
-
-
-<div>
-  <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--8-col mdl-cell--4-col-desktop">
-    <div class="mdl-card__title">
-      <h2 class="mdl-card__title-text">Local Weather</h2>
-    </div>
-    <div class="mdl-card__supporting-text">
-      <p>{{projectContent}}</p>
-      <p>{{time}} Last Check</p>
-      <p>{{temp}} Degrees Celsius</p>
-      <p>{{cloudCoverage}}% CLOUD Coverage</p>
-      <p>{{rain}} PRECIPITATION (VOL in past 3 hours)</p>
-    </div>
-    <div class="mdl-card__actions mdl-card--border">
-      <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-        More
-      </a>
-    </div>
-    <div class="mdl-card__menu">
-      <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-        <i class="material-icons">share</i>
-      </button>
+<div class = "mdl-grid">
+  <div class = "mdl-cell mdl-cell--3-col"></div>
+  <div class = "mdl-cell mdl-cell--2-col">
+    <div id = "tester"></div>
+  </div>
+  <div class = "mdl-cell mdl-cell--4-col">
+    <div class="mdl-card">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">{{projectContent}} Weather Forecast</h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+        <p>{{time}} Last Check <br>
+        {{temp}} Degrees Celsius<br>
+        {{cloudCoverage}}% CLOUD Coverage<br>
+        {{rain}} PRECIPITATION (VOL in past 3 hours)</p>
+      </div>
     </div>
   </div>
+  <div class = "mdl-cell mdl-cell--3-col"></div>
 </div>
 
-<div id = "tester">
-
+<div class = "mdl-grid">
+  <div class = "mdl-cell mdl-cell--3-col"></div>
+  <div class = "mdl-cell mdl-cell--6-col">
+    <div id = "news">
+    </div>
+  </div>
+  <div class = "mdl-cell mdl-cell--3-col"></div>
 </div>
 
-<div id = "news">
+
+<div class = "mdl-grid">
+  <div class = "mdl-cell mdl-cell--3-col"></div>
+  <div class = "mdl-cell mdl-cell--6-col">
+    <div id = "cl">
+    </div>
+  </div>
+  <div class = "mdl-cell mdl-cell--3-col"></div>
 </div>
 
-<div id = "cl">
+<div class = "mdl-grid">
+  <div class = "mdl-cell mdl-cell--3-col"></div>
+  <div class = "mdl-cell mdl-cell--6-col">
+    <div id = "reddit"></div>
+  </div>
+  <div class = "mdl-cell mdl-cell--3-col"></div>
 </div>
+
 
 
 
@@ -107,7 +118,7 @@ $(document).ready(function(){
   });
 
   $.get("/cl", function(roomlistings){
-    console.log(roomlistings);
+    //console.log(roomlistings);
 
     $("#cl").append(
       $("<table/>", {id: "cllist", class: "mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"}).append(
@@ -120,7 +131,23 @@ $(document).ready(function(){
         $("<tr/>").append($("<td/>", {text: roomlistings[i].title})).append($("<td/>", {text: roomlistings[i].price}))
       )
     }
+  });
 
+  $.get("/reddit", function(threads){
+    $("#reddit").append(
+      $("<table/>", {id: "redditlist", class: "mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"}).append(
+        $("<tbody/>", {id: "redditlistcontainer"})
+      )
+    );
+
+    threads.map(function(indivThread){
+      var time = new Date(indivThread.time_created*1000).toLocaleString();
+      $("#redditlistcontainer").append($("<tr/>")
+        .append($("<td/>")
+        .append($("<a/>", {href: "http://reddit.com"+indivThread.thread_link, text: indivThread.thread_title.substring(0,77)})))
+        .append($("<td/>", {text: time})));
+    });
+    console.log(threads);
   });
 });
 
