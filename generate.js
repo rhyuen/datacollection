@@ -64,6 +64,7 @@ mongoose.connect(config.db, function(){
     });
 
     console.log(listingList);
-    mongoose.disconnect();
+
   });
+  mongoose.disconnect();
 });
