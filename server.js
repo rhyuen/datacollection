@@ -10,6 +10,7 @@ var path = require("path");
 var Article = require("./models/articlelisting.js");
 var RoomListing = require("./models/roomlisting.js");
 var config = require("./config.js");
+var compression = require("compression");
 var app = express();
 
 app.set("PORT", process.env.PORT || 9901);
@@ -24,6 +25,7 @@ app.engine(".hbs", exphbs({defaultLayout: "layout",
 }));
 app.set("view engine", ".hbs");
 app.use(morgan("dev"));
+app.use(compression());
 app.use(passport.initialize());
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -109,11 +111,35 @@ app.get("/cl", function(req, res){
   });
 });
 
+app.get("/reddit", function(req, res){
+  var url = "http://www.reddit.com/r/worldnews/.json";
+  request(url, function(err, status, content){
+    var json = JSON.parse(content);
+
+    var processedData = json.data.children.map(function(item){
+      return {
+        domain: item.data.domain,
+        subreddit: item.data.subreddit,
+        thread_score: item.data.score,
+        num_comments: item.data.num_comments,
+        thread_link: item.data.permalink,
+        time_created: item.data.created,
+        source_url: item.data.url,
+        thread_title: item.data.title
+      };
+    });
+    res.send(processedData);
+  });
+});
+
+
 app.get("/login", function(req, res){
   res.render("login");
 });
 
+var mainrouter = require("./centralroutes.js");
 var userrouter = require("./userroutes.js");
+app.use("/", mainrouter);
 app.use("/api/users", userrouter);
 
 app.use(function(req, res, next){

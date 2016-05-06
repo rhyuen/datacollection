@@ -23,6 +23,8 @@ mongoose.connect(config.db, function(){
       var currRoomDim = "";
       var currArea = "";
       var currDate = "";
+      var currLink = "https://vancouver.craigslist.ca";
+
 
       //Posting Date
       $(this).find(".pl time").each(function(){
@@ -32,6 +34,8 @@ mongoose.connect(config.db, function(){
       //Post Title
       $(this).find(".pl a").each(function(){
         currTitle = $(this).text();
+        //LISTING URL
+        currLink += $(this).attr("href");
       });
 
       $(this).find(".l2").each(function(){
@@ -45,12 +49,14 @@ mongoose.connect(config.db, function(){
         currArea = ($(this).find(".pnr small").text() === "") ? "EMPTY NEIGHBOURHOOD" : $(this).find(".pnr small").text().trim();
       });
 
+
       var currListing = new RoomListing({
         title: currTitle,
         price: currPrice,
         roomDim: currRoomDim,
         area: currArea,
-        date:currDate
+        date: currDate,
+        url: currLink
       });
 
       currListing.save(function(err, data){
@@ -66,5 +72,6 @@ mongoose.connect(config.db, function(){
     console.log(listingList);
 
   });
-  mongoose.disconnect();
+  //mongoose.disconnect();
+  //wrong scope again.
 });

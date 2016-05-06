@@ -80,7 +80,7 @@ function getNewsData(targetUrl){
 
     });
 
-    mongoose.disconnect();
+    //mongoose.disconnect();
   });
 }
 
