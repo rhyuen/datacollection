@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "gulp test",
     "cl": "node generate.js",
     "weather": "node weather.js",
     "news": "node newsgeneratetwo.js",
@@ -23,10 +23,18 @@
     "fs": "0.0.2",
     "mongoose": "^4.2.3",
     "morgan": "1.7.0",
+    "nodemon": "1.9.2",
     "passport": "0.3.2",
     "passport-http": "0.3.0",
     "path": "0.12.7",
     "request": "^2.65.0",
     "serve-favicon": "2.3.0"
+  },
+  "devDependencies": {
+    "browser-sync": "2.12.5",
+    "chai": "3.5.0",
+    "gulp": "3.9.1",
+    "gulp-bg": "0.0.8",
+    "gulp-mocha": "2.2.0"
   }
 }
