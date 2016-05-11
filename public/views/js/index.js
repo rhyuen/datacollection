@@ -26,10 +26,24 @@ $(document).ready(function(){
     var recordedDate = new Date(rawDate);
     var currDate = new Date();
 
-    var recordedDateMin = recordedDate.getMilliseconds() / (1000);
-    var currDateMin = currDate.getMilliseconds()/(1000);
-    var differenceInMin = Math.abs(recordedDateMin - currDateMin);
-    return differenceInMin;
+    //Diff is in Seconds
+    var diff = Math.abs(Math.floor((currDate - recordedDate)/(1000)));
+    console.log(diff);
+
+    //Change this to a switch statement
+    if(diff < 60)
+      return diff.toString() + " seconds ago";
+    else if(diff < 3600) //Less than an hour
+      return Math.floor(diff / 60).toString() + " minutes ago";
+    else if(diff < (3600*24)) //Less than a day
+      return Math.floor(diff /(60*60)).toString() + " hours ago";
+    else if(diff < (3600*24*7)) //Less than a week
+      return Math.floor(diff / (60*60*24)).toString() + " days ago";
+    else {
+      return "ALTA";
+    }
+
+
   }
 
   $.get("/news", function(data){
@@ -67,7 +81,7 @@ $(document).ready(function(){
         .append($("<td/>", {text: room.price}))
         .append($("<td/>", {text: shortenString(room.roomDim)}))
         .append($("<td/>", {text: room.area.substring(0,20)}))
-        .append($("<td/>", {text: makeRelativeTime(room.date) + " seconds ago."}))
+        .append($("<td/>", {text: makeRelativeTime(room.date)}))
       );
     });
   });
@@ -77,6 +91,7 @@ $(document).ready(function(){
       .append($("<table/>", {id: "redditlist", class: "mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"})
       .append($("<tbody/>", {id: "redditlistcontainer"})));
 
+    //There's an 8 hr offset issue for the relative date that should be solved without using a constant.
     threads.map(function(indivThread){
       var time = new Date(indivThread.time_created*1000).toLocaleString();
       $("#redditlistcontainer").append($("<tr/>")
@@ -90,7 +105,7 @@ $(document).ready(function(){
           .append($("<a/>", {href: "http://reddit.com"+indivThread.thread_link, text: indivThread.thread_title.substring(0,77)})))
           .append($("<br/>"))
           .append($("<a/>", {href: "http://" + indivThread.source_url, text: indivThread.source_url.split("/")[2]})))
-        .append($("<td/>", {text: time })));
+        .append($("<td/>", {text: makeRelativeTime((indivThread.time_created + 28800)*1000) })));
     });
   });
 });
