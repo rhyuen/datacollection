@@ -20,7 +20,7 @@ UserSchema.pre("save", function(callback){
   if(!user.isModified("password"))
     return callback();
   //New PW, need to hash it.
-  bcrypt.gensalt(5, function(err, salt){
+  bcrypt.genSalt(5, function(err, salt){
     if(err)
       return callback(err);
     bcrypt.hash(user.password, salt, null, function(err, hash){

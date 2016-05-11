@@ -1,6 +1,6 @@
 <style>
   .mdl-card__title{
-    height: 200px;
+    height: 100px;
     background: url("../images/van2.jpg") center/cover;
     color: lavender;
     text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
@@ -15,7 +15,7 @@
   <div class = "mdl-cell mdl-cell--4-col">
     <div class="mdl-card">
       <div class="mdl-card__title">
-        <h2 class="mdl-card__title-text">{{projectContent}} Weather Forecast</h2>
+        <h2 class="mdl-card__title-text">{{projectContent}} Forecast</h2>
       </div>
       <div class="mdl-card__supporting-text">
         <p>{{time}} Last Check <br>
@@ -28,24 +28,68 @@
   <div class = "mdl-cell mdl-cell--3-col"></div>
 </div>
 
+<style>
+  .vsun.mdl-card{width: 725px;}
+</style>
+
+
+
+
+
 <div class = "mdl-grid">
   <div class = "mdl-cell mdl-cell--3-col"></div>
   <div class = "mdl-cell mdl-cell--6-col">
-    <div id = "news">
+    <div class = "vsun mdl-card mdl-shadow--2dp">
+      <div class = "mdl-card__title">
+        <h2 class = "mdl-card__title-text">Vancouver Sun</h2>
+      </div>
+      <div id = "news">
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+          More
+        </a>
+      </div>
+
+      <div class="mdl-card__menu">
+        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+          <i class="material-icons">autorenew</i>
+        </button>
+      </div>
     </div>
   </div>
   <div class = "mdl-cell mdl-cell--3-col"></div>
 </div>
 
 
+
+
+
 <div class = "mdl-grid">
   <div class = "mdl-cell mdl-cell--3-col"></div>
   <div class = "mdl-cell mdl-cell--6-col">
-    <div id = "cl">
+    <div class = "vsun mdl-card mdl-shadow--2dp">
+      <div class = "mdl-card__title">
+        <h2 class = "mdl-card__title-text">Craigslist: Vancouver</h2>
+      </div>
+      <div id = "cl">
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+          More
+        </a>
+      </div>
+      <div class="mdl-card__menu">
+        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+          <i class="material-icons">autorenew</i>
+        </button>
+      </div>
     </div>
   </div>
   <div class = "mdl-cell mdl-cell--3-col"></div>
 </div>
+
+
 
 <div class = "mdl-grid">
   <div class = "mdl-cell mdl-cell--3-col"></div>

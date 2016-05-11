@@ -25,7 +25,6 @@ mongoose.connect(config.db, function(){
       var currDate = "";
       var currLink = "https://vancouver.craigslist.ca";
 
-
       //Posting Date
       $(this).find(".pl time").each(function(){
         currDate = $(this).attr("datetime");
@@ -70,8 +69,6 @@ mongoose.connect(config.db, function(){
     });
 
     console.log(listingList);
-
+    //mongoose.disconnect();
   });
-  //mongoose.disconnect();
-  //wrong scope again.
 });
