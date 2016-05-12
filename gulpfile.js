@@ -1,6 +1,10 @@
 var gulp = require("gulp");
 var mocha = require("gulp-mocha");
+var imagemin = require("gulp-imagemin");
+var cache = require("gulp-cache");
 var bkgd= require("gulp-bg");
+var del = require("del");
+var runSequence = require("run-sequence");
 var browserSync = require("browser-sync").create();
 
 
@@ -25,6 +29,19 @@ gulp.task("test", ["start"], function(){
     });
 });
 
+gulp.task("images", function(){
+  return gulp.src("public/images/**/*.+(png|jpg|gif|svg)")
+    .pipe(cache(imagemin()))
+    .pipe(gulp.dest("dist/images"));
+});
+
+gulp.task("build", function(cb){
+  runSequence("cleandist", ["images"], cb);
+});
+
+gulp.task("cleandist", function(){
+  return del.sync("dist");
+});
 
 gulp.task("browser-sync", function(){
   browserSync.init({
@@ -32,8 +49,9 @@ gulp.task("browser-sync", function(){
   });
 });
 
+
 gulp.task("watch", ["browser-sync"], function(){
-  gulp.watch("./public/views/**/*.hbs").on("change", browserSync.reload);
+  gulp.watch("./public/views/**/*.+(js|hbs)").on("change", browserSync.reload);
 });
 
-gulp.task("default", ["start", "test", "watch"]);
+gulp.task("default", ["build", "start", "test", "watch"]);

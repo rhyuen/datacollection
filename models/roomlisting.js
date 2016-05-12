@@ -7,6 +7,8 @@ var roomListingSchema = mongoose.Schema({
   area: String,
   date: String,
   url: String
-});
+}, {timestamps: {
+  createdAt: "created_at"
+}});
 
 module.exports = mongoose.model("RoomListing", roomListingSchema);

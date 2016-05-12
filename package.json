@@ -9,7 +9,8 @@
     "cl": "node generate.js",
     "weather": "node weather.js",
     "news": "node newsgeneratetwo.js",
-    "reddit": "node reddit_generate.js"
+    "reddit": "node reddit_generate.js",
+    "build": "gulp build"
   },
   "author": "",
   "license": "ISC",
@@ -33,8 +34,12 @@
   "devDependencies": {
     "browser-sync": "2.12.5",
     "chai": "3.5.0",
+    "del": "2.2.0",
     "gulp": "3.9.1",
     "gulp-bg": "0.0.8",
-    "gulp-mocha": "2.2.0"
+    "gulp-cache": "0.4.5",
+    "gulp-imagemin": "3.0.1",
+    "gulp-mocha": "2.2.0",
+    "run-sequence": "1.1.5"
   }
 }
