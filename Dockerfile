@@ -27,13 +27,11 @@
 # EXPOSE 9901
 # CMD ["npm", "start"]
 
-FROM ubuntu:latest
+FROM node:argon
 MAINTAINER theduckening
-RUN apt-get update && apt-get install -y nodejs npm
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-COPY package.json /usr/src/app
-RUN npm install --production
 COPY . /usr/src/app
+RUN npm install --production
 EXPOSE 9901
 CMD ["npm", "start"]
