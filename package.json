@@ -10,7 +10,8 @@
     "weather": "node weather.js",
     "news": "node newsgeneratetwo.js",
     "reddit": "node reddit_generate.js",
-    "build": "gulp build"
+    "build": "gulp build",
+    "dummy": "node ./junkfolder/secondserver.js"
   },
   "author": "",
   "license": "ISC",
