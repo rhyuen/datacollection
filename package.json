@@ -4,14 +4,16 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "pm2 start server.js",
     "test": "gulp test",
     "cl": "node generate.js",
     "weather": "node weather.js",
     "news": "node newsgeneratetwo.js",
     "reddit": "node reddit_generate.js",
     "build": "gulp build",
-    "dummy": "node ./junkfolder/secondserver.js"
+    "dummy": "node ./junkfolder/secondserver.js",
+    "kijiji": "node kijijigenerate.js",
+    "dev": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
@@ -26,10 +28,12 @@
     "helmet": "2.0.0",
     "mongoose": "^4.2.3",
     "morgan": "1.7.0",
+    "nconf": "0.8.4",
     "nodemon": "1.9.2",
     "passport": "0.3.2",
     "passport-http": "0.3.0",
     "path": "0.12.7",
+    "pm2": "1.1.3",
     "request": "^2.65.0",
     "serve-favicon": "2.3.0"
   },

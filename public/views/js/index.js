@@ -42,18 +42,6 @@ $(document).ready(function(){
       return "ALTA";
     }
 
-    // switch(true){
-    //   case (diff < 60):
-    //     return diff.toString() + " seconds ago";
-    //   case (diff < 3600):
-    //     return Math.floor(diff / 60).toString() + " minutes ago";
-    //   case (diff < (3600*24)):
-    //     return Math.floor(diff /(60*60)).toString() + " hours ago";
-    //   case (diff < (3600*24*7)):
-    //     return Math.floor(diff / (60*60*24)).toString() + " days ago";
-    //   default:
-    //     return "ALTA";
-    // }
   }
 
   $.get("/news", function(data){

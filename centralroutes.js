@@ -1,7 +1,7 @@
 var express = require("express");
 var request = require("request");
 var mongoose = require("mongoose");
-var config = require("./config.js");
+var nconf = require("./nconf.js");
 var Article = require("./models/articlelisting.js");
 var RoomListing = require("./models/roomlisting.js");
 var router = express.Router();
@@ -15,7 +15,7 @@ router.get("/", function(req, res){
   //ser Story: I can push a button to toggle between Fahrenheit Celsius Kelvin.
 
 
-  var weatherurl = "http://api.openweathermap.org/data/2.5/forecast/city?id=6173331&units=metric&APPID=" + config.weather_api;
+  var weatherurl = "http://api.openweathermap.org/data/2.5/forecast/city?id=6173331&units=metric&APPID=" + nconf.get("weather_api");
   request(weatherurl, function(err, status, data){
     if(err)
       console.error(err);
@@ -36,7 +36,7 @@ router.post("/", function(req, res){
   var userLat = req.body.lat;
   var userLng = req.body.long;
 
-  var userGpsUrl = "http://api.openweathermap.org/data/2.5/weather?lat=" + userLat + "&lon=" + userLng + "&units=metric&APPID=" + config.weather_api;
+  var userGpsUrl = "http://api.openweathermap.org/data/2.5/weather?lat=" + userLat + "&lon=" + userLng + "&units=metric&APPID=" + nconf.get("weather_api");
   request(userGpsUrl, function(err, status, data){
     if(err)
       console.error(err);
@@ -55,11 +55,7 @@ router.post("/", function(req, res){
 
 
 router.get("/news", function(req, res){
-  mongoose.connect(config.db, function(err){
-    if(err)
-      console.error(err);
-
-    Article.find()
+  Article.find()
     .sort({"updatedAt": -1})
     .limit(10)
     .exec(function(err, result){
@@ -67,25 +63,23 @@ router.get("/news", function(req, res){
         console.error(err);
       //console.log(result);
       res.send(result);
-
-    });
   });
 });
 
 router.get("/cl", function(req, res){
-  mongoose.connect(config.db, function(err){
-    if(err)
-      console.error(err);
-    RoomListing.find()
-      .sort({"updatedAt": -1})
-      .limit(10)
-      .exec(function(err, rooms){
-        if(err)
-          console.error(err);
-        console.log(rooms);
-        res.send(rooms);
-      });
-  });
+  RoomListing.find()
+    .sort({"updatedAt": -1})
+    .limit(10)
+    .exec(function(err, rooms){
+      if(err)
+        console.error(err);
+      console.log(rooms);
+      res.send(rooms);
+    });
+});
+
+router.get("/kijiji", function(req, res){
+  res.send("kijijiroute");
 });
 
 router.get("/reddit", function(req, res){

@@ -7,8 +7,8 @@ var morgan = require("morgan");
 var passport = require("passport");
 var path = require("path");
 var helmet = require("helmet");
-var config = require("./config.js");
 var compression = require("compression");
+var nconf = require("./nconf.js");
 var app = express();
 
 app.set("PORT", process.env.PORT || 9901);
@@ -27,6 +27,9 @@ app.set("view engine", ".hbs");
 app.use(morgan("dev"));
 app.use(compression());
 app.use(passport.initialize());
+mongoose.connect(process.env.db ||nconf.get("db"), function(err){
+  console.log("DB Connection Attempted.");
+});
 
 
 var mainrouter = require("./centralroutes.js");
