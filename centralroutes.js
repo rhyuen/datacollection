@@ -15,7 +15,7 @@ router.get("/", function(req, res){
   //ser Story: I can push a button to toggle between Fahrenheit Celsius Kelvin.
 
 
-  var weatherurl = "http://api.openweathermap.org/data/2.5/forecast/city?id=6173331&units=metric&APPID=" + nconf.get("weather_api");
+  var weatherurl = "http://api.openweathermap.org/data/2.5/forecast/city?id=6173331&units=metric&APPID=" + nconf.weather_api;
   request(weatherurl, function(err, status, data){
     if(err)
       console.error(err);
@@ -36,7 +36,7 @@ router.post("/", function(req, res){
   var userLat = req.body.lat;
   var userLng = req.body.long;
 
-  var userGpsUrl = "http://api.openweathermap.org/data/2.5/weather?lat=" + userLat + "&lon=" + userLng + "&units=metric&APPID=" + nconf.get("weather_api");
+  var userGpsUrl = "http://api.openweathermap.org/data/2.5/weather?lat=" + userLat + "&lon=" + userLng + "&units=metric&APPID=" + nconf.weather_api;
   request(userGpsUrl, function(err, status, data){
     if(err)
       console.error(err);

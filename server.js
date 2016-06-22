@@ -27,15 +27,13 @@ app.set("view engine", ".hbs");
 app.use(morgan("dev"));
 app.use(compression());
 app.use(passport.initialize());
-mongoose.connect(process.env.db ||nconf.get("db"), function(err){
+mongoose.connect(nconf.db, function(err){
   console.log("DB Connection Attempted.");
 });
 
 
 var mainrouter = require("./centralroutes.js");
-var userrouter = require("./userroutes.js");
 app.use("/", mainrouter);
-app.use("/api/users", userrouter);
 
 app.use(function(req, res, next){
   var err = new Error("404: Not Found");
