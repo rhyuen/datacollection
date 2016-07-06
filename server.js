@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(helmet());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(favicon(path.join(__dirname, "public/docker.ico")));
+app.use(favicon(path.join(__dirname, "public/favi_v2.png")));
 app.set("views", path.join(__dirname, "public/views"));
 app.engine(".hbs", exphbs({defaultLayout: "layout",
   layoutsDir: path.join(__dirname, "public/views/layouts"),
@@ -28,7 +28,14 @@ app.use(morgan("dev"));
 app.use(compression());
 app.use(passport.initialize());
 mongoose.connect(nconf.db, function(err){
+  if(err)
+    throw(err);
   console.log("DB Connection Attempted.");
+});
+mongoose.connection.on("connected", function(err){
+  if(err)
+    console.log(err);
+  console.log("Connection established. %s", new Date().toLocaleTimeString());
 });
 
 

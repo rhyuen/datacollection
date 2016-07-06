@@ -28,7 +28,7 @@ request(baseKijijiUrl, function(err, status, data){
      currRoomListing.price = $(this).find(".price").text().trim();
      currRoomListing.area = $(this).find(".location").clone().children().remove().end().text().trim();     //Often just Vancouver
      currRoomListing.date = $(this).find(".date-posted").text().trim();
-     currRoomListing.url = $(this).find(".title a").attr("href").trim();
+     currRoomListing.url = baseKijijiUrl + $(this).find(".title a").attr("href").trim();
      currRoomListing.desc = $(this).find(".description").text().trim();
 
     //Figure out how to make an async call on a value that isn't initialized at runtime
@@ -42,22 +42,21 @@ request(baseKijijiUrl, function(err, status, data){
 
     //TODO:
     //  Drill Deeper for more info-container
-    //  Don't Save Doubles
-    //
 
-    RoomListing.find({"title": currRoomListing.title}, function(err, data){
+    RoomListing.find({title: currRoomListing.title}, function(err, data){
       if(err)
         throw err;
-      //If it exists don't save, and skip
 
-      if(title == data.title){
-        console.log("RoomListing exists.");
-      }else{
+      //EXISTING ENTRY NOT FOUND, MAKE ONE
+      if(Object.keys(data).length === 0){
         currRoomListing.save(function(err, data){
           if(err)
             throw err;
-          console.log("Kijiji Room Listing Saved.\n %s", data);
+          console.log("Kijiji Room Listing Saved.\n %s\n", data);
         });
+      //ENTRY EXISTS, UPDATE TIMESTAMPS.
+      }else{
+        console.log("Exists already. Title: %s", data[0].title);
       }
     });
 
