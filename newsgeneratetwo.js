@@ -1,4 +1,5 @@
 /*NewsGenerate*/
+"use strict";
 
 var request = require("request");
 var config = require("./config.js");
@@ -7,11 +8,6 @@ var mongoose = require("mongoose");
 var Article = require("./models/articleListing.js");
 var firstUrl = "http://vancouversun.com/category/news/page/3";
 var mainUrl = "http://vancouversun.com/category/news";
-
-
-/*
-Add a check for duplicates of articles.
-*/
 
 function getNewsData(targetUrl){
   mongoose.connect(config.db, function(err){
@@ -23,66 +19,36 @@ function getNewsData(targetUrl){
 
       var urlContainer = [];
 
-      $("article h2 a").each(function(){
+      $("article h2 a, article h3 a, article h4 a").each(function(){
 
         var currArticle = new Article({
-          title: $(this).text(),
+          title: $(this).text().trim(),
           url: $(this).attr("href"),
           source: "Vancouver Sun"
         });
 
-        currArticle.save(function(err, data){
+        Article.find({title: currArticle.title}, function(err, articles){
           if(err)
-            console.error(err);
-          console.log(data);
+            throw err;
+          if(Object.keys(articles).length === 0){
+            currArticle.save(function(err, data){
+              if(err)
+                console.error(err);
+              console.log(data);
+            });
+          }else{
+            console.log("Article exists already. Title: %s", articles[0].title);
+          }
         });
+
 
         urlContainer.push(currArticle);
-        console.log(currArticle);
       });
 
-      $("article h3 a").each(function(){
-
-        var currArticle = new Article({
-          title: $(this).text(),
-          url: $(this).attr("href"),
-          source: "Vancouver Sun"
-        });
-
-        currArticle.save(function(err, data){
-          if(err)
-            console.error(err);
-          console.log(data);
-        });
-
-        urlContainer.push(currArticle);
-        console.log(currArticle);
-      });
-
-      $("article h4 a").each(function(){
-
-        var currArticle = new Article({
-          title: $(this).text(),
-          url: $(this).attr("href"),
-          source: "Vancouver Sun"
-        });
-
-        currArticle.save(function(err, data){
-          if(err)
-            console.error(err);
-          console.log(data);
-        });
-
-        urlContainer.push(currArticle);
-        console.log(currArticle);
-      });
       console.log(urlContainer.length);
-
     });
-
-    //mongoose.disconnect();
   });
 }
 
-
-getNewsData(firstUrl);
+//getNewsData(firstUrl);
+getNewsData(mainUrl);

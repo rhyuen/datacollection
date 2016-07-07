@@ -58,17 +58,26 @@ mongoose.connect(config.db, function(){
         url: currLink
       });
 
-      currListing.save(function(err, data){
+      RoomListing.find({title: currListing.title}, function(err, existingData){
         if(err)
-          console.log(err);
-        console.log("Entry Saved.  Title: %s", data.title);
+          throw err;
+        if(Object.keys(existingData).length === 0){
+          currListing.save(function(err, data){
+            if(err)
+              console.log(err);
+            console.log("Entry Saved.  Title: %s", data.title);
+          });
+        }else{
+          console.log("CL exists already. Title: %s", existingData[0].title);
+        }
       });
+
+
       listingList.push(currListing);
 
       count++;
     });
 
     console.log(listingList);
-    //mongoose.disconnect();
   });
 });

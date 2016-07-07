@@ -6,8 +6,9 @@ var RoomListing = require("./models/roomlisting.js");
 
 var baseKijijiUrl = "http://www.kijiji.ca/b-room-rental-roommate/vancouver/c36l1700287?ad=offering";
 
+var dbOptions = {server: {socketOptions: {connectTimeoutMS: 30000}}};
 
-mongoose.connect(config.db, function(err){
+mongoose.connect(config.db, dbOptions, function(err){
   if(err)
     console.log(err);
   console.log("Mongoose conn attempted.");
@@ -54,7 +55,8 @@ request(baseKijijiUrl, function(err, status, data){
             throw err;
           console.log("Kijiji Room Listing Saved.\n %s\n", data);
         });
-      //ENTRY EXISTS, UPDATE TIMESTAMPS.
+      //ENTRY EXISTS,
+      //TODO: UPDATE TIMESTAMPS.
       }else{
         console.log("Exists already. Title: %s", data[0].title);
       }
