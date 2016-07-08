@@ -6,9 +6,7 @@ var RoomListing = require("./models/roomlisting.js");
 var config = require("./config.js");
 var mongoose = require("mongoose");
 
-var url = "http://vancouver.craigslist.ca/search/roo";
-
-mongoose.connect(config.db, function(){
+module.exports = function(url){
   request(url, function(err, res, html){
     if(err)
       console.log(err);
@@ -48,7 +46,6 @@ mongoose.connect(config.db, function(){
         currArea = ($(this).find(".pnr small").text() === "") ? "EMPTY NEIGHBOURHOOD" : $(this).find(".pnr small").text().trim();
       });
 
-
       var currListing = new RoomListing({
         title: currTitle,
         price: currPrice,
@@ -72,12 +69,10 @@ mongoose.connect(config.db, function(){
         }
       });
 
-
       listingList.push(currListing);
 
       count++;
     });
-
     console.log(listingList);
   });
-});
+};

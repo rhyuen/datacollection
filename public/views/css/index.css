@@ -1,0 +1,31 @@
+body{
+  background: url("../../images/nightsky.jpg") center/cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.mdl-card__title{
+  height: 100px;
+  background: url("https://source.unsplash.com/category/nature") center/cover;
+  color: lavender;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+.mdl-cell table{
+  width: 100%;
+}
+
+.metro-card-image{
+  width: 200px;
+  height: 200px;
+  background-color: green;
+}
+.aggtile{
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+.vsun.mdl-card{width: 800px;}

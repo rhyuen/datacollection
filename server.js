@@ -27,6 +27,7 @@ app.set("view engine", ".hbs");
 app.use(morgan("dev"));
 app.use(compression());
 app.use(passport.initialize());
+
 mongoose.connect(nconf.db, function(err){
   if(err)
     throw(err);
@@ -41,6 +42,10 @@ mongoose.connection.on("connected", function(err){
 
 var mainrouter = require("./centralroutes.js");
 app.use("/", mainrouter);
+var apirouter = require("./apirouter.js");
+app.use("/api", apirouter);
+
+
 
 app.use(function(req, res, next){
   var err = new Error("404: Not Found");

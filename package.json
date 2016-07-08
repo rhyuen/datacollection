@@ -13,7 +13,8 @@
     "build": "gulp build",
     "dummy": "node ./junkfolder/secondserver.js",
     "kijiji": "node kijijigenerate.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "getall": "node geteverything.js"
   },
   "author": "",
   "license": "ISC",
