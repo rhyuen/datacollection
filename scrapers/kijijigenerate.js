@@ -1,21 +1,7 @@
 var request = require("request");
 var cheerio = require("cheerio");
 var mongoose = require("mongoose");
-var config = require("./nconf.js");
-var RoomListing = require("./models/roomlisting.js");
-
-
-var dbOptions = {server: {socketOptions: {connectTimeoutMS: 30000}}};
-
-// mongoose.connect(config.db, dbOptions, function(err){
-//   if(err)
-//     console.log(err);
-//   console.log("Mongoose conn attempted.");
-// });
-// mongoose.connection.on("connected", function(){
-//   console.log("Mongoose connection open to %s", config.db);
-// });
-
+var RoomListing = require("../models/roomlisting.js");
 
 module.exports = function(baseKijijiUrl){
   request(baseKijijiUrl, function(err, status, data){

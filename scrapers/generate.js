@@ -2,8 +2,7 @@ var path = require("path");
 var fs = require("fs");
 var request = require("request");
 var cheerio = require("cheerio");
-var RoomListing = require("./models/roomlisting.js");
-var config = require("./config.js");
+var RoomListing = require("../models/roomlisting.js");
 var mongoose = require("mongoose");
 
 module.exports = function(url){

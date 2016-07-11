@@ -1,11 +1,9 @@
 /*NewsGenerate*/
 "use strict";
-
 var request = require("request");
-var config = require("./config.js");
 var cheerio = require("cheerio");
 var mongoose = require("mongoose");
-var Article = require("./models/articleListing.js");
+var Article = require("../models/articleListing.js");
 var firstUrl = "http://vancouversun.com/category/news/page/3";
 var mainUrl = "http://vancouversun.com/category/news";
 

@@ -1,7 +1,7 @@
 "use strict";
 
 var mongoose = require("mongoose");
-var config = require("./nconf.js");
+var config = require("../nconf.js");
 
 var vansun_news = require("./newsgeneratetwo.js");
 var cl_room = require("./generate.js");
@@ -26,10 +26,15 @@ mongoose.connect(config.db, function(err){
 
 mongoose.connection.on("connected", function(){
   console.log("DB Conn success.");
+  setInterval(executeScrapers, 300000);
+});
 
+var cyclesRun = 0;
+function executeScrapers(){
   vansun_news(vancouverSun_mainPageUrl);
   cl_room(craigslist_room_url);
   kijiji_room(kijiji_room_Url);
-});
+  console.log(++cyclesRun);
+}
 
 //write api access layer

@@ -14,7 +14,7 @@
     "dummy": "node ./junkfolder/secondserver.js",
     "kijiji": "node kijijigenerate.js",
     "dev": "nodemon server.js",
-    "getall": "node geteverything.js"
+    "getall": "node scrapers/geteverything.js"
   },
   "author": "",
   "license": "ISC",
