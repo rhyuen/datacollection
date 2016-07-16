@@ -44,21 +44,30 @@ $(document).ready(function(){
 
   }
 
-  $.get("/news", function(data){
-    console.log(data);
+  $.get("/news", function(newsArticle){
+    //console.log(data);
 
     $("#news")
       .append($("<table/>", {id: "newslist", class: "mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"})
       .append($("<tbody/>", {id: "newslistcontainer"})));
 
-    for(var i = 0; i < data.length; i++){
+    newsArticle.map(function(item){
       $("#newslistcontainer")
         .append($("<tr/>")
           .append($("<td/>")
-          .append($("<a/>", {href: data[i].url, target: "_blank",text: data[i].title})))
-            .append($("<td/>", {text: data[i].source}))
-            .append($("<td/>", {text: data[i].updatedAt.split("T")[0]})));
-    }
+          .append($("<a/>", {href: item.url, target: "_blank",text: item.title})))
+            .append($("<td/>", {text: item.source}))
+            .append($("<td/>", {text: item.updatedAt.split("T")[0]})));
+    });
+
+    // for(var i = 0; i < data.length; i++){
+    //   $("#newslistcontainer")
+    //     .append($("<tr/>")
+    //       .append($("<td/>")
+    //       .append($("<a/>", {href: data[i].url, target: "_blank",text: data[i].title})))
+    //         .append($("<td/>", {text: data[i].source}))
+    //         .append($("<td/>", {text: data[i].updatedAt.split("T")[0]})));
+    // }
 
   });
 
@@ -75,7 +84,8 @@ $(document).ready(function(){
 
     roomlistings.map(function(room){
       $("#cllistcontainer").append($("<tr/>")
-        .append($("<td/>").append($("<a/>", {href: room.url, text: room.title.substring(0,30)})))
+        .append($("<td/>")
+        .append($("<a/>", {href: room.url, target: "_blank", text: room.title.substring(0,30)})))
         .append($("<td/>", {text: room.price}))
         .append($("<td/>", {text: shortenString(room.roomDim)}))
         .append($("<td/>", {text: room.area.substring(0,20)}))
@@ -100,7 +110,7 @@ $(document).ready(function(){
         .append($("<td/>", {text: (Math.round((indivThread.thread_score/indivThread.num_comments)*100)/100)}))
         .append($("<td/>")
           .append($("<span/>")
-          .append($("<a/>", {href: "http://reddit.com"+indivThread.thread_link, text: indivThread.thread_title.substring(0,77)})))
+          .append($("<a/>", {href: "http://reddit.com"+indivThread.thread_link, target: "_blank", text: indivThread.thread_title.substring(0,77)})))
           .append($("<br/>"))
           .append($("<a/>", {href: "http://" + indivThread.source_url, text: indivThread.source_url.split("/")[2]})))
         .append($("<td/>", {text: makeRelativeTime((indivThread.time_created + 28800)*1000) })));

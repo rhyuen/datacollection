@@ -79,6 +79,15 @@ router.get("/cl", function(req, res){
 });
 
 router.get("/kijiji", function(req, res){
+  RoomListing.find()
+    .sort({"updatedAt": -1})
+    .limit(10)
+    .exec(function(err, rooms){
+      if(err)
+        console.error(err);
+      console.log(rooms);
+      res.send(rooms);
+    });
   res.send("kijijiroute");
 });
 
