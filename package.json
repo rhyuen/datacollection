@@ -6,16 +6,17 @@
   "scripts": {
     "start": "pm2 start server.js",
     "test": "gulp test",
-    "cl": "node generate.js",
+    "cl": "node scrapers/generate.js",
     "weather": "node weather.js",
-    "news": "node newsgeneratetwo.js",
+    "news": "node scrapers/newsgeneratetwo.js",
     "reddit": "node reddit_generate.js",
     "build": "gulp build",
     "dummy": "node ./junkfolder/secondserver.js",
-    "kijiji": "node kijijigenerate.js",
+    "kijiji": "node scrapers/kijijigenerate.js",
     "dev": "nodemon server.js",
     "getall": "node scrapers/geteverything.js",
-    "province": "node scrapers/newsprovincegenerate.js"
+    "province": "node scrapers/newsprovincegenerate.js",
+    "newsgeneric": "node scrapers/genericarticlescraper.js"
   },
   "author": "",
   "license": "ISC",

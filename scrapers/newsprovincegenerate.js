@@ -42,6 +42,6 @@ var getProvinceArticles = function(provinceUrl){
   });
 };
 
-getProvinceArticles(provinceLocalMainPageUrl);
+//getProvinceArticles(provinceLocalMainPageUrl);
 
 module.exports = getProvinceArticles;

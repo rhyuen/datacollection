@@ -23,10 +23,10 @@ router.get("/", function(req, res){
 
     res.render("index", {
       projectContent: content.city.name,
-      time: content.list[0].dt_txt,
-      temp: content.list[0].main.temp,
-      cloudCoverage: content.list[0].clouds.all,
-      rain: ""//content.list[0].rain["3h"] //breaks if there's no rain...
+      time: "Busted",
+      temp: "Broken",
+      cloudCoverage: "Doth not work",
+      rain: "Le Sigh"
     });
   });
 });

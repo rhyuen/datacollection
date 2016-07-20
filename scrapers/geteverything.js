@@ -6,6 +6,7 @@ var vansun_news = require("./newsgeneratetwo.js");
 var province_local = require("./newsprovincegenerate.js");
 var cl_room = require("./generate.js");
 var kijiji_room = require("./kijijigenerate.js");
+var genericNews = require("./genericarticlescraper");
 
 
 var vancouverSun_mainPageUrl = "http://vancouversun.com/category/news";
@@ -26,7 +27,6 @@ mongoose.connect(config.db, function(err){
     console.error(err);
     mongoose.disconnect();
   }
-
   console.log("DB Connection attempted at %s.", new Date().toLocaleTimeString());
 });
 
@@ -42,10 +42,11 @@ mongoose.connection.on("disconnected", function(){
 
 var cyclesRun = 0;
 function executeScrapers(){
-  province_local(provinceLocalMainPageUrl);
-  vansun_news(vancouverSun_mainPageUrl);
-  cl_room(craigslist_room_url);
-  kijiji_room(kijiji_room_Url);
+  genericNews();
+  // province_local(provinceLocalMainPageUrl);
+  // vansun_news(vancouverSun_mainPageUrl);
+  // cl_room(craigslist_room_url);
+  // kijiji_room(kijiji_room_Url);
   console.log(++cyclesRun);
 }
 
