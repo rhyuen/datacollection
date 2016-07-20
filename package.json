@@ -14,7 +14,8 @@
     "dummy": "node ./junkfolder/secondserver.js",
     "kijiji": "node kijijigenerate.js",
     "dev": "nodemon server.js",
-    "getall": "node scrapers/geteverything.js"
+    "getall": "node scrapers/geteverything.js",
+    "province": "node scrapers/newsprovincegenerate.js"
   },
   "author": "",
   "license": "ISC",

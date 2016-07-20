@@ -34,6 +34,16 @@ router.get("/housing/cl", function(req, res){
   });
 });
 
+router.get("/housing/cl/average", function(req, res){
+  RoomListing.find({"url": /^https:\/\/vancouver.craigslist.ca/}, function(err, cl_results){
+    if(err){
+      console.log("Error: %s", err);
+      res.render("error");
+    }
+    res.json({result: "success", listings: cl_results});
+  });
+});
+
 router.get("/housing/kijiji", function(req, res){
   RoomListing.find({url: /www.kijiji.ca/}, function(err, kijiji_results){
     if(err){

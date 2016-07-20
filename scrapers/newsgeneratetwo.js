@@ -3,7 +3,7 @@
 var request = require("request");
 var cheerio = require("cheerio");
 var mongoose = require("mongoose");
-var Article = require("../models/articleListing.js");
+var Article = require("../models/articlelisting.js");
 var firstUrl = "http://vancouversun.com/category/news/page/3";
 var mainUrl = "http://vancouversun.com/category/news";
 
