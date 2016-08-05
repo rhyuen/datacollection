@@ -22,41 +22,42 @@ var sourceDictionary = {
 
 
 var getAllArticles = function(){
+  for(var scopekey in sourceDictionary){
 
-  //ISSUE: Async Issue fires all the calls off and then when the console logs execute,
-  //they're all for the last value.
-  for(var key in sourceDictionary){
-    request(sourceDictionary[key].mainUrl, function(err, status, data){
-      var $ = cheerio.load(data);
-      $(sourceDictionary[key].cssSelector).each(function(){
+    (function(){
 
-        var currArtListing = new Article({
-          title: $(this).text().trim(),
-          url: $(this).attr("href").trim(),
-          source: sourceDictionary[key].name
-        });
-        console.log(currArtListing);
+      var srckey = scopekey;
+      request(sourceDictionary[srckey].mainUrl, function(err, status, data){
+        if(err) throw err;
 
-        Article.find({title: currArtListing.title}, function(err, artData){
-          if(err){
-            console.log(err);
-            throw err;
-          }
+        var $ = cheerio.load(data);
 
-          if(Object.keys(artData).length === 0){
-            currArtListing.save(function(err, currArtData){
-              if(err){
-                console.log(err);
-                throw err;
-              }
-              console.log("%s. Saved: \n %s\n", sourceDictionary[key].name, currArtData);
-            });
-          }else{
-            console.log("%s. Exists Already. Title: %s", sourceDictionary[key].name, artData[0].title);
-          }
+        $(sourceDictionary[srckey].cssSelector).each(function(){
+
+          var currArtListing = new Article({
+            title: $(this).text().trim(),
+            url: $(this).attr("href").trim(),
+            source: sourceDictionary[srckey].name //POI
+          });
+          console.log(currArtListing);
+
+          Article.find({title: currArtListing.title}, function(err, artData){
+            if(err) throw err;
+
+            if(Object.keys(artData).length === 0){
+              currArtListing.save(function(err, currArtData){
+                if(err) throw err;
+                console.log("%s. Saved: \n %s\n", sourceDictionary[srckey].name, currArtData);
+              });
+            }else{
+              console.log("%s. Exists Already. Title: %s", sourceDictionary[srckey].name, artData[0].title);
+            }
+          });
         });
       });
-    });
+
+    })();
+
   }
 };
 

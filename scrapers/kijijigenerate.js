@@ -5,8 +5,7 @@ var RoomListing = require("../models/roomlisting.js");
 
 module.exports = function(baseKijijiUrl){
   request(baseKijijiUrl, function(err, status, data){
-    if(err)
-      throw err;
+    if(err) throw err;
     var $ = cheerio.load(data);
 
     $(".info-container").each(function(){
@@ -23,20 +22,18 @@ module.exports = function(baseKijijiUrl){
       //  Drill Deeper for more info-container
 
       RoomListing.find({title: currRoomListing.title}, function(err, data){
-        if(err)
-          throw err;
+        if(err) throw err;
 
         //EXISTING ENTRY NOT FOUND, MAKE ONE
         if(Object.keys(data).length === 0){
           currRoomListing.save(function(err, data){
-            if(err)
-              throw err;
+            if(err) throw err;
             console.log("Kijiji Room Listing Saved.\n %s\n", data);
           });
         //ENTRY EXISTS,
         //TODO: UPDATE TIMESTAMPS.
         }else{
-          console.log("Exists already. Title: %s", data[0].title);
+          console.log("KJJ exists already. Title: %s", data[0].title);
         }
       });
     });
