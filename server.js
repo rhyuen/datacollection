@@ -29,13 +29,11 @@ app.use(compression());
 app.use(passport.initialize());
 
 mongoose.connect(nconf.db, function(err){
-  if(err)
-    throw(err);
-  console.log("DB Connection Attempted.");
+  if(err) throw(err);
+  console.log("DB Connection Attempted at %s.", new Date().toLocaleTimeString());
 });
 mongoose.connection.on("connected", function(err){
-  if(err)
-    console.log(err);
+  if(err) console.log(err);
   console.log("Connection established. %s", new Date().toLocaleTimeString());
 });
 

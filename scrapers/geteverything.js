@@ -26,18 +26,18 @@ mongoose.connect(config.db, function(err){
 });
 
 mongoose.connection.on("connected", function(){
-  console.log("DB Conn success.");
+  console.log("DB Conn success at %s.", new Date().toLocaleTimeString());
   setInterval(executeScrapers, 60000);
 });
 
 mongoose.connection.on("disconnected", function(){
-  console.log("Disconnection occurred.");
+  console.log("Disconnection occurred at %s.", new Date().toLocaleTimeString());
   mongoose.connect(config.db);
 })
 
 var cyclesRun = 0;
 function executeScrapers(){
-  genericNews();  
+  genericNews();
   cl_room(craigslist_room_url);
   kijiji_room(kijiji_room_Url);
   console.log(++cyclesRun);

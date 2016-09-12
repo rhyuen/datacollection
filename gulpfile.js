@@ -51,7 +51,7 @@ gulp.task("browser-sync", function(){
 
 
 gulp.task("watch", ["browser-sync"], function(){
-  gulp.watch("./public/views/**/*.+(js|hbs)").on("change", browserSync.reload);
+  gulp.watch("./public/views/**/*.+(js|hbs|css|html)").on("change", browserSync.reload);
 });
 
 gulp.task("default", ["build", "start", "test", "watch"]);

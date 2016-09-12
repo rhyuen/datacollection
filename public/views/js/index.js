@@ -55,20 +55,15 @@ $(document).ready(function(){
       $("#newslistcontainer")
         .append($("<tr/>")
           .append($("<td/>")
-          .append($("<a/>", {href: item.url, target: "_blank",text: item.title})))
+          .append($("<a/>", {
+            href: item.url,
+            title: item.title,
+            target: "_blank",
+            text: item.title
+          })))
             .append($("<td/>", {text: item.source}))
             .append($("<td/>", {text: item.updatedAt.split("T")[0]})));
     });
-
-    // for(var i = 0; i < data.length; i++){
-    //   $("#newslistcontainer")
-    //     .append($("<tr/>")
-    //       .append($("<td/>")
-    //       .append($("<a/>", {href: data[i].url, target: "_blank",text: data[i].title})))
-    //         .append($("<td/>", {text: data[i].source}))
-    //         .append($("<td/>", {text: data[i].updatedAt.split("T")[0]})));
-    // }
-
   });
 
   $.get("/cl", function(roomlistings){
@@ -85,7 +80,12 @@ $(document).ready(function(){
     roomlistings.map(function(room){
       $("#cllistcontainer").append($("<tr/>")
         .append($("<td/>")
-        .append($("<a/>", {href: room.url, target: "_blank", text: room.title.substring(0,30)})))
+        .append($("<a/>", {
+          href: room.url,
+          title: room.url,
+          target: "_blank",
+          text: room.title.substring(0,30)
+        })))
         .append($("<td/>", {text: room.price}))
         .append($("<td/>", {text: shortenString(room.roomDim)}))
         .append($("<td/>", {text: room.area.substring(0,20)}))
@@ -96,8 +96,13 @@ $(document).ready(function(){
 
   $.get("/reddit", function(threads){
     $("#reddit")
-      .append($("<table/>", {id: "redditlist", class: "mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"})
-      .append($("<tbody/>", {id: "redditlistcontainer"})));
+      .append($("<table/>", {
+        id: "redditlist",
+        class: "mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"
+      })
+      .append($("<tbody/>", {
+        id: "redditlistcontainer"
+      })));
 
     //There's an 8 hr offset issue for the relative date that should be solved without using a constant.
     threads.map(function(indivThread){
@@ -107,12 +112,22 @@ $(document).ready(function(){
           .append($("<span/>", {text: indivThread.thread_score}))
           .append($("<br/>"))
           .append($("<span/>", {text: indivThread.num_comments})))
-        .append($("<td/>", {text: (Math.round((indivThread.thread_score/indivThread.num_comments)*100)/100)}))
+        .append($("<td/>", {
+          text: (Math.round((indivThread.thread_score/indivThread.num_comments)*100)/100)
+        }))
         .append($("<td/>")
           .append($("<span/>")
-          .append($("<a/>", {href: "http://reddit.com"+indivThread.thread_link, target: "_blank", text: indivThread.thread_title.substring(0,77)})))
+          .append($("<a/>", {
+            href: "http://reddit.com"+indivThread.thread_link,
+            target: "_blank", text: indivThread.thread_title.substring(0,77),
+            title: indivThread.thread_title
+           })))
           .append($("<br/>"))
-          .append($("<a/>", {href: "http://" + indivThread.source_url, text: indivThread.source_url.split("/")[2]})))
+          .append($("<a/>", {
+            href: "http://" + indivThread.source_url,
+            title: "http://" + indivThread.source_url,
+            text: indivThread.source_url.split("/")[2]
+          })))
         .append($("<td/>", {text: makeRelativeTime((indivThread.time_created + 28800)*1000) })));
     });
   });

@@ -1,4 +1,10 @@
-web:
-  build: .
-  dockerfile: dockerfile
-  
+version: "1"
+services:
+  web:
+    build: .
+    dockerfile: Dockerfile
+    environment:
+      - NODE_ENV = ${NODE_ENV}
+      - PORT = ${PORT}
+  mongo:
+    image: mongo:3.0.12

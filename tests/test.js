@@ -1,4 +1,8 @@
 var expect = require("chai").expect;
+var chai = require("chai");
+var chaiHttp = require("chai-http");
+var should = reuqire("chai").should();
+
 var request = require("request");
 var rootUrl = "http://localhost:9901/";
 

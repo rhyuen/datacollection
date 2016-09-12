@@ -55,13 +55,11 @@ module.exports = function(url){
       });
 
       RoomListing.find({title: currListing.title}, function(err, existingData){
-        if(err)
-          throw err;
+        if(err) throw err;
         if(Object.keys(existingData).length === 0){
           currListing.save(function(err, data){
-            if(err)
-              console.log(err);
-            console.log("Entry Saved.  Title: %s", data.title);
+            if(err) console.log(err);
+            console.log("CL entry Saved.  Title: %s", data.title);
           });
         }else{
           console.log("CL exists already. Title: %s", existingData[0].title);
