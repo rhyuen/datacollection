@@ -57,7 +57,7 @@ router.post("/", function(req, res){
 router.get("/news", function(req, res){
   Article.find()
     .sort({"updatedAt": -1})
-    .limit(10)
+    .limit(15)
     .exec(function(err, result){
       if(err)
         console.error(err);
@@ -69,7 +69,7 @@ router.get("/news", function(req, res){
 router.get("/cl", function(req, res){
   RoomListing.find()
     .sort({"updatedAt": -1})
-    .limit(10)
+    .limit(15)
     .exec(function(err, rooms){
       if(err)
         console.error(err);
@@ -81,7 +81,7 @@ router.get("/cl", function(req, res){
 router.get("/kijiji", function(req, res){
   RoomListing.find()
     .sort({"updatedAt": -1})
-    .limit(10)
+    .limit(15)
     .exec(function(err, rooms){
       if(err)
         console.error(err);

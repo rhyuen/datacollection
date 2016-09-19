@@ -43,6 +43,7 @@
   "devDependencies": {
     "browser-sync": "2.12.5",
     "chai": "3.5.0",
+    "chai-http": "3.0.0",
     "del": "2.2.0",
     "gulp": "3.9.1",
     "gulp-bg": "0.0.8",
